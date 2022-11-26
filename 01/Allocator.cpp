@@ -23,8 +23,6 @@ char* Allocator::alloc(size_t size){
 	{
 		offset += size;
 		char *ret = ptr + size;
-		std::cout << *ret << std::endl;
-		std::cout << ret << std::endl;
 		return ret;
 	}
 	return nullptr;
