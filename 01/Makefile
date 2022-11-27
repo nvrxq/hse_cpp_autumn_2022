@@ -5,7 +5,7 @@ all: alloc
 
 alloc : main.o Allocator.o
 	$(CC) $(FLAGS) main.o Allocator.o -o main
-	./main
+	valgrind ./main
 
 main.o: main.cpp
 	$(CC) $(FLAGS) main.cpp -c

@@ -9,7 +9,7 @@ Allocator::Allocator(){
 }
 
 Allocator::~Allocator(){
-	std::cout << "Deleted" << std::endl;
+	delete [] ptr;
 }
 
 void Allocator::makeAllocator(size_t maxSize){
@@ -30,4 +30,12 @@ char* Allocator::alloc(size_t size){
 
 void Allocator::reset(){
 	offset = 0;
+}
+
+int Allocator::getOffset() const{
+	return offset;
+}
+
+int Allocator::getRealSize() const{
+	return realSize;
 }
