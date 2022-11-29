@@ -2,24 +2,28 @@
 #include "Allocator.hpp"
 
 
-Allocator::Allocator(){
+Allocator::Allocator()
+{
 	ptr = nullptr;
 	offset = 0;
 	realSize = 0;
 }
 
-Allocator::~Allocator(){
+Allocator::~Allocator()
+{
 	delete [] ptr;
 }
 
-void Allocator::makeAllocator(size_t maxSize){
+void Allocator::makeAllocator(size_t maxSize)
+{
 	delete [] ptr;
 	realSize = maxSize;
 	ptr = new char[maxSize];
 }
 
-char* Allocator::alloc(size_t size){
-	if(size + offset <= realSize)
+char* Allocator::alloc(size_t size)
+{
+	if(size && (size + offset <= realSize))
 	{
 		offset += size;
 		return ptr + size;
@@ -27,14 +31,17 @@ char* Allocator::alloc(size_t size){
 	return nullptr;
 }
 
-void Allocator::reset(){
+void Allocator::reset()
+{
 	offset = 0;
 }
 
-size_t Allocator::getOffset() const{
+size_t Allocator::getOffset() const
+{
 	return offset;
 }
 
-size_t Allocator::getRealSize() const{
+size_t Allocator::getRealSize() const
+{
 	return realSize;
 }
