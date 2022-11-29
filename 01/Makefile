@@ -1,17 +1,20 @@
 CC=g++
-FLAGS =-std=c++17 -Wall -pedantic -Werror -Wextra
+FLAGS =-std=c++20 -Wall -pedantic -Werror -Wextra
+TEST_LIB=-lgtest -lgtest_main -lpthread
 
-all: alloc
 
-alloc : main.o Allocator.o
-	$(CC) $(FLAGS) main.o Allocator.o -o main
-	valgrind ./main
+all: Allocator test_bin
 
-main.o: main.cpp
-	$(CC) $(FLAGS) main.cpp -c
+test_bin: 
+	${CC} ${FLAGS} Allocator.o tests.cpp -o tests ${TEST_LIB}
 
-Allocator.o: Allocator.cpp
+
+
+Allocator: Allocator.cpp Allocator.hpp
 	$(CC) $(FLAGS) Allocator.cpp -c
 
+test: 
+	./tests
+
 clean:
-	rm -rf *.o main
+	rm -rf *.o tests

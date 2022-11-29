@@ -19,11 +19,10 @@ void Allocator::makeAllocator(size_t maxSize){
 }
 
 char* Allocator::alloc(size_t size){
-	if(size + offset < realSize)
+	if(size + offset <= realSize)
 	{
 		offset += size;
-		char *ret = ptr + size;
-		return ret;
+		return ptr + size;
 	}
 	return nullptr;
 }
@@ -32,10 +31,10 @@ void Allocator::reset(){
 	offset = 0;
 }
 
-int Allocator::getOffset() const{
+size_t Allocator::getOffset() const{
 	return offset;
 }
 
-int Allocator::getRealSize() const{
+size_t Allocator::getRealSize() const{
 	return realSize;
 }
