@@ -7,17 +7,16 @@ class TokenParser
 {
 	private:
 		std::function<void()> StartCallback;
-	//	std::function<void()> EndCallback;
-	//	std::function<void(uint64_t)> DigitTokenCallback;
-	//	std::function<void(const std::string&)> StringTokenCallback;
+		std::function<void()> EndCallback;
+		std::function<void(uint64_t)> DigitTokenCallback;
+		std::function<void(const std::string&)> StringTokenCallback;
 	public:
 		TokenParser() = default;
-		void SetStartCallback(std::function<void()> f = nullptr);
-	//	void SetEndCallback(std::function<void()> f){};
+		void SetStartCallback(std::function<void()> f);
+		void SetEndCallback(std::function<void()> f);
 
-	//	void SetDigitTokenCallback(std::function<void(uint64_t)> f = nullptr){};
-
-	//	void SetStringokenCallback(std::function<void(const std::string&)> f = nullptr){};
+		void SetDigitTokenCallback(std::function<void(uint64_t)> f);
+		void SetStringTokenCallback(std::function<void(const std::string&)> f);
 
 		void Parse(const std::string& line) const;
 		
