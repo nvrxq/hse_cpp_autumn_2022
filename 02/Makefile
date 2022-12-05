@@ -6,7 +6,7 @@ TEST_LIB=-lgtest -lgtest_main -lpthread
 all: TokenParser test_bin
 
 test_bin: 
-	${CC} ${FLAGS} TokenParser.o tests.cpp -o tests 
+	${CC} ${FLAGS} TokenParser.o tests.cpp -g -o tests 
 
 
 
