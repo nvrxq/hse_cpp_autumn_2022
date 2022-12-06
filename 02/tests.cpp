@@ -8,7 +8,7 @@ int main() {
   std::vector<uint64_t> digits;
   std::vector<std::string> strings;
   TokenParser parser;
-  std::string testing_strings = "24 ya test dz xd 25 ";
+  std::string testing_strings = "24 ya 184467440737095 test\tdz\nxd 25";
   parser.SetStartCallback([]() {
     std::cout << "Start" << std::endl;
     ;
@@ -19,7 +19,7 @@ int main() {
   parser.SetStringTokenCallback(
       [&strings](std::string &line) { strings.push_back(line); });
   parser.Parse(testing_strings);
-  for (auto a : digits) {
+  for (auto a : strings) {
     std::cout << a << std::endl;
   }
   return 0;

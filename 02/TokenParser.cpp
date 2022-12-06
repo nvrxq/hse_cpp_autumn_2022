@@ -1,6 +1,7 @@
 #include "TokenParser.hpp"
 #include <cstdint>
 #include <iostream>
+#include <ostream>
 #include <string>
 
 void TokenParser::SetStartCallback(std::function<void()> f = nullptr) {
@@ -33,17 +34,23 @@ bool TokenParser::IsDigit(char *chr) const {
 
 void TokenParser::Parse(std::string &line) const {
   bool DigitToken = true;
+  const size_t n = line.size();
+  size_t digit;
+  const uint64_t maximum = 0xFFFFFFFFFFFFFFFF;
   StartCallback();
   std::string token = "";
-  for (size_t i = 0; i < line.size(); ++i) {
+  for (size_t i = 0; i < n; ++i) {
     if (!Delimetr(&line[i])) {
       token += line[i];
-      std::cout << token << " " << DigitToken << std::endl;
       DigitToken = IsDigit(&line[i]);
-    } else {
-      if (DigitToken)
-        DigitTokenCallback(std::stoull(token));
-      else
+    } else if (Delimetr(&line[i]) || (token != "" && i == n - 1)) {
+      if (DigitToken) {
+        digit = std::stoull(token);
+        if (digit < maximum / 10) {
+          DigitTokenCallback(digit);
+        } else
+          StringTokenCallback(token);
+      } else
         StringTokenCallback(token);
       token = "";
     }

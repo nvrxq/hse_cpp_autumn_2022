@@ -14,7 +14,7 @@ TokenParser: TokenParser.hpp TokenParser.cpp
 	$(CC) $(FLAGS) TokenParser.cpp -c
 
 test: 
-	./tests
+	valgrind ./tests
 
 clean:
 	rm -rf *.o tests
