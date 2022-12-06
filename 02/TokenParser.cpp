@@ -44,12 +44,8 @@ void TokenParser::Parse(std::string &line) const {
       token += line[i];
       DigitToken = IsDigit(&line[i]);
     } else if (Delimetr(&line[i]) || (token != "" && i == n - 1)) {
-      if (DigitToken) {
-        digit = std::stoull(token);
-        if (digit < maximum / 10) {
-          DigitTokenCallback(digit);
-        } else
-          StringTokenCallback(token);
+      if (DigitToken && ((digit = std::stoll(token)) < maximum / 10)) {
+        DigitTokenCallback(digit);
       } else
         StringTokenCallback(token);
       token = "";
