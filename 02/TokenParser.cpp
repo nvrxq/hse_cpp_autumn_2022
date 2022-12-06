@@ -35,7 +35,7 @@ bool TokenParser::IsDigit(char *chr) const {
 void TokenParser::Parse(std::string &line) const {
   bool DigitToken = true;
   const size_t n = line.size();
-  size_t digit;
+  uint64_t digit;
   const uint64_t maximum = 0xFFFFFFFFFFFFFFFF;
   StartCallback();
   std::string token = "";
