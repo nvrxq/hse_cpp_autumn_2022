@@ -1,6 +1,5 @@
 #include "TokenParser.hpp"
-#include <cstdint>
-#include <string>
+
 
 void TokenParser::SetStartCallback(std::function<void()> f) {
   StartCallback = f ? f : []() {};
