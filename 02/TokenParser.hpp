@@ -13,13 +13,13 @@ private:
 
 public:
   TokenParser() = default;
-  void SetStartCallback(std::function<void()> f);
-  void SetEndCallback(std::function<void()> f);
+  void SetStartCallback(std::function<void()> f = nullptr);
+  void SetEndCallback(std::function<void()> f = nullptr);
 
-  void SetDigitTokenCallback(std::function<void(uint64_t)> f);
-  void SetStringTokenCallback(std::function<void(std::string &)> f);
+  void SetDigitTokenCallback(std::function<void(uint64_t)> f = nullptr);
+  void SetStringTokenCallback(std::function<void(std::string &)> f = nullptr);
 
-  void Parse(std::string &line) const;
-  bool Delimetr(char *c) const;
-  bool IsDigit(char *chr) const;
+  void Parse(const std::string &line) const;
+  bool Delimetr(char c) const;
+  bool IsDigit(char c) const;
 };
