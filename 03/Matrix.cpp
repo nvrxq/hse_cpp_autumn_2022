@@ -2,10 +2,7 @@
 #include <cstddef>
 #include <stdexcept>
 
-Matrix::ProxyRow::ProxyRow(size_t _columns) {
-  data_ = new int32_t[_columns];
-  sizeColumns = _columns;
-}
+
 
 Matrix::Matrix(size_t _row, size_t _columns)
     : RowSize(_row), ColumnSize(_columns) {
