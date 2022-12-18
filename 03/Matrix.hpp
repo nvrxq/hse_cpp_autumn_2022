@@ -7,7 +7,6 @@ class Matrix {
   class ProxyRow {
   public:
     ProxyRow() = default;
-    ProxyRow(size_t n);
     ~ProxyRow();
     void SetData(size_t columns);
     int32_t &operator[](size_t _columns);
