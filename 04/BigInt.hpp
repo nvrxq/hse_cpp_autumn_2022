@@ -1,22 +1,40 @@
 #pragma once
-#include "vector.hpp"
-#include <iostream>
+
 #include <ostream>
-#include <sys/types.h>
+#include <string>
+
 class BigInt {
 private:
-  Vector data;
+  int32_t *digit;
   size_t size;
   bool sign;
 
 public:
-  BigInt();
+  BigInt() = default;
+
   BigInt(std::string &num);
-  BigInt(Vector vec);
-  BigInt(BigInt &&bigint); // Перемещение
-  size_t getSize() const;
-  uint32_t getData(size_t index) const;
-  friend std::ostream &operator<<(std::ostream &os, const BigInt &bigint);
-  BigInt &operator=(BigInt &&bigint);
-  friend BigInt operator+(const BigInt &left, const BigInt &right);
+  BigInt(const BigInt &other);
+  BigInt(BigInt &&other);
+  BigInt(int32_t *_data, size_t _len, bool _sign);
+  BigInt &operator=(const BigInt &other);
+  BigInt &operator=(BigInt &&other);
+  BigInt operator-() const;
+
+  friend bool operator>(const BigInt &left, const BigInt &right);
+  friend bool operator<(const BigInt &left, const BigInt &right);
+
+  friend bool operator==(const BigInt &left, const BigInt &right);
+  friend bool operator!=(const BigInt &left, const BigInt &right);
+  friend bool operator>=(const BigInt &left, const BigInt &right);
+  friend bool operator<=(const BigInt &left, const BigInt &right);
+
+  friend BigInt operator+(const BigInt left, const BigInt right);
+  friend BigInt operator-(const BigInt left, const BigInt right);
+  friend BigInt operator*(const BigInt left, const BigInt right);
+  /*
+  BigInt operator*(const BigInt &other) const;
+  */
+  ~BigInt() = default;
+
+  friend std::ostream &operator<<(std::ostream &out, const BigInt &num);
 };
