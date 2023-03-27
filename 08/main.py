@@ -5,7 +5,7 @@ import cjson
 import json
 import ujson
 from datetime import datetime
-
+from random import randint
 def test_load():
     faker = Faker()
     json_test = {}
@@ -34,6 +34,22 @@ def test_dumps():
     json_test = {}
     for _ in range(1000):
         json_test[faker.first_name()] = faker.last_name()
+    #--------------------------------#
+    start=datetime.now()
+    jj = json.dumps(json_test)
+    #--------------------------------#
+    start=datetime.now()
+    cj = cjson.dumps(json_test)
+    #--------------------------------#
+    assert cj == jj
+
+
+
+def test_digits():
+    faker = Faker()
+    json_test = {}
+    for _ in range(1000):
+        json_test[faker.first_name()] = randint(1, 10)
     #--------------------------------#
     start=datetime.now()
     jj = json.dumps(json_test)
