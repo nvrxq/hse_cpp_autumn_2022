@@ -18,19 +18,26 @@ private:
   }
 
   template <class T> Error process(T &val) {
-    bool is_bool = typeid(val) == typeid(bool);
-    bool is_int = typeid(val) == typeid(uint64_t);
-    if (!is_bool and !is_int)
-      return Error::CorruptedArchive;
     std::string _text;
     in_ >> _text;
     if (_text.empty())
       return Error::CorruptedArchive;
-    if (is_bool)
-      val = _text == "true" ? true : false;
-    else
+    bool is_number = true;
+    for (char c : _text) {
+      if (!std::isdigit(c)) {
+        is_number = false;
+        break;
+      }
+    }
+    if (is_number)
       val = std::stoul(_text);
-
+    else {
+      if (_text == "true" or _text == "false") {
+        val = _text == "true";
+      } else {
+        return Error::CorruptedArchive;
+      }
+    }
     return Error::NoError;
   }
 
