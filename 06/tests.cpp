@@ -1,6 +1,7 @@
 #include "format.hpp"
 #include <gtest/gtest.h>
 #include <iostream>
+#include <stdexcept>
 
 class Tests : public ::testing::Test {
 protected:
@@ -21,17 +22,8 @@ TEST(tests_format, test1) {
 TEST(Except, test2) {
   std::string testStringOutRange = "test out for {25}";
   std::string testStringBadBrace = "testing }{24}";
-  try {
-    auto testOutRange = format(testStringOutRange, "range");
-  } catch (std::out_of_range const &error) {
-    ASSERT_EQ(error.what(), std::string("IndexError"));
-  }
-
-  try {
-    auto testBadBrace = format(testStringBadBrace, "512");
-  } catch (std::logic_error const &error) {
-    ASSERT_EQ(error.what(), std::string("unexpected brace"));
-  }
+  ASSERT_THROW(format(testStringOutRange, "range"), RangeErrorException);
+  ASSERT_THROW(format(testStringBadBrace, "425"), BadBraceException);
 }
 
 int main(int argc, char **argv) {

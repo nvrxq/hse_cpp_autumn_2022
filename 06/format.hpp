@@ -1,3 +1,4 @@
+#include "exception.hpp"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -23,12 +24,11 @@ std::string format(std::string format_string, Args &&...args) {
   for (size_t i = 0; i < len; ++i) {
     if ((stackStatus && format_string[i] == '{') ||
         (!stackStatus && format_string[i] == '}'))
-      throw std::logic_error("unexpected brace");
-
+      throw BadBraceException("Unexpected brace!");
     if (stackStatus && format_string[i] == '}') {
       size_t idx = std::stoi(digit);
       if (idx > formatArgs.size()) {
-        throw std::out_of_range("IndexError");
+        throw RangeErrorException("Range Error!");
       } else {
         resultString += formatArgs[idx];
       }
