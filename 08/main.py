@@ -4,8 +4,6 @@ import pytest
 import cjson
 import json
 import ujson
-from pprint import pprint
-from random import randint
 from datetime import datetime
 
 def test_load():
@@ -28,5 +26,24 @@ def test_load():
     
     assert uj == jj == cj
     assert js_time > cj_time # В 1/10 не пройдет.
+
+
+
+def test_dumps():
+    faker = Faker()
+    json_test = {}
+    for _ in range(1000):
+        json_test[faker.first_name()] = faker.last_name()
+    #--------------------------------#
+    start=datetime.now()
+    jj = json.dumps(json_test)
+    #--------------------------------#
+    start=datetime.now()
+    cj = cjson.dumps(json_test)
+    #--------------------------------#
+    assert cj == jj
+
+
+
 
 

@@ -1,6 +1,0 @@
-cjson.c
-setup.py
-cjson.egg-info/PKG-INFO
-cjson.egg-info/SOURCES.txt
-cjson.egg-info/dependency_links.txt
-cjson.egg-info/top_level.txt
