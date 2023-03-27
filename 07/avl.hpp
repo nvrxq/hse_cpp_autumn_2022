@@ -4,9 +4,8 @@
 #include <limits>
 #include <stdexcept>
 #include <list>
-#include <tuple>
+#include<tuple>
 #include "avl_tree_node.hpp"
-
 
 	template <typename T>
 	class allocator
@@ -385,26 +384,6 @@
 			delete right_border_;
 		}
 
-		avl_tree& operator=(const avl_tree& tree)
-		{
-			auto tmp(tree);
-			swap(tmp);
-			return *this;
-		}
-
-		avl_tree& operator=(avl_tree&& tree)
-		{
-			swap(tree);
-			return *this;
-		}
-
-		avl_tree& operator=(std::initializer_list<value_type> l)
-		{
-			avl_tree tmp(l);
-			swap(tmp);
-			return *this;
-		}
-
 		std::pair<iterator, bool> insert(const value_type& x)
 		{
 			return common_insert(value_type(x));
@@ -442,18 +421,8 @@
 			return common_insert_or_assign<_Obj>(std::move(k), std::forward<_Obj>(obj));
 		}
 
-		template <typename... _Args>
-		std::pair<iterator, bool> emplace(_Args&&... args)
-		{
-			return insert(value_type(std::forward<_Args>(args)...));
-		}
 
-		template <typename... _Args>
-		std::pair<iterator, bool> try_emplace(const key_type& k, _Args&&... args)
-		{
-			return common_try_emplace(std::move(key_type(k)), std::move(args)...);
-		}
-
+		
 		template <typename... _Args>
 		std::pair<iterator, bool> try_emplace(key_type&& k, _Args&&... args)
 		{
@@ -752,6 +721,8 @@
 			size_--;
 			update_min_max_nodes();
 			connect_border();
+
+			
 			return iterator(next);
 		}
 
@@ -763,17 +734,6 @@
 				throw std::out_of_range("Item not found.");
 			}
 			return (iter->second);
-		}
-
-		template <typename... _Args>
-		std::pair<iterator, bool> common_try_emplace(key_type&& k, _Args&&... args)
-		{
-			auto iter = find(k);
-			if (iter != end()) return std::make_pair(iter, false);
-
-			return emplace(std::piecewise_construct,
-			               std::forward_as_tuple(std::move(k)),
-			               std::forward_as_tuple(std::forward<_Args>(args)...));
 		}
 
 		node_type* common_find(const key_type& x) const

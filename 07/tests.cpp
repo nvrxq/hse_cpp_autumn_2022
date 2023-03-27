@@ -53,6 +53,12 @@ TEST(erase_test, avl){
     ASSERT_EQ(tree.size(), 8);
 }
 
+TEST(find_test, avl){
+    avl_tree<int, std::string> tree;
+    ASSERT_EQ(tree.end(), tree.find(0));
+}
+
+
 
 
 
