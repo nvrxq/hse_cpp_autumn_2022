@@ -2,16 +2,13 @@ CC = g++
 FLAGS =-std=c++20 
 TEST_LIB=-lgtest -lgtest_main -lpthread
 
-all:  BigintBin  MainBin
+all:    MainBin
 
 
 MainBin: 
-	${CC} ${FLAGS}  BigInt.o tests.cpp -g -o tests
+	${CC} ${FLAGS} BigInt.cpp tests.cpp -g -o tests ${TEST_LIB}
 
-BigintBin:
-	${CC} ${FLAGS} BigInt.cpp -c
-
-run:
+test:
 	 ./tests
 
 clean:

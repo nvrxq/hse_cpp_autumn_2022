@@ -1,40 +1,36 @@
 #pragma once
+#include <iostream>
 
-#include <ostream>
-#include <string>
 
 class BigInt {
-private:
-  int32_t *digit;
-  size_t size;
-  bool sign;
-
+    size_t _len;
+    char * _digit;
+    
 public:
-  BigInt() = default;
+    // Конструкторы 
+    BigInt();
+    BigInt(const std::string &str);
+    BigInt(int64_t value);
+    BigInt(const BigInt &other);
+    BigInt(BigInt &&other);
+    // Перемещение , копирование 
+    BigInt& operator=(const BigInt &other);
+    BigInt& operator=(BigInt &&other);
+    // Арифметика
+    BigInt operator-() const;
+    bool operator>(const BigInt &other) const;
+    bool operator<(const BigInt &other) const;
+    bool operator==(const BigInt &other) const;
+    bool operator!=(const BigInt &other) const;
+    bool operator>=(const BigInt &other) const;
+    bool operator<=(const BigInt &other) const;
+    
+    BigInt operator+(const BigInt &other) const;
+    BigInt operator-(const BigInt &other) const;
+    BigInt operator*(const BigInt &other) const;
 
-  BigInt(std::string &num);
-  BigInt(const BigInt &other);
-  BigInt(BigInt &&other);
-  BigInt(int32_t *_data, size_t _len, bool _sign);
-  BigInt &operator=(const BigInt &other);
-  BigInt &operator=(BigInt &&other);
-  BigInt operator-() const;
-
-  friend bool operator>(const BigInt &left, const BigInt &right);
-  friend bool operator<(const BigInt &left, const BigInt &right);
-
-  friend bool operator==(const BigInt &left, const BigInt &right);
-  friend bool operator!=(const BigInt &left, const BigInt &right);
-  friend bool operator>=(const BigInt &left, const BigInt &right);
-  friend bool operator<=(const BigInt &left, const BigInt &right);
-
-  friend BigInt operator+(const BigInt left, const BigInt right);
-  friend BigInt operator-(const BigInt left, const BigInt right);
-  friend BigInt operator*(const BigInt left, const BigInt right);
-  /*
-  BigInt operator*(const BigInt &other) const;
-  */
-  ~BigInt() = default;
-
-  friend std::ostream &operator<<(std::ostream &out, const BigInt &num);
+    ~BigInt();
+    
+    friend std::ostream& operator<<(std::ostream &out, const BigInt &num);
 };
+
